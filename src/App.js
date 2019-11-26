@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from './components/Navbar';
+import CampgroundsList from './components/CampgroundsList';
+import CreateCampground from './components/CreateCampground';
+import CreateUser from './components/CreateUser';
+import EditCampground from './components/EditCampground';
+// start react app with 'npm start' (port 3000) and start database connection with 'nodemon server' (port 5000) in a separate terminal.
+
+// nodemon is installed globally
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+
+      <div className="App container">
+        <br />
+        <Route path="/" exact component={CampgroundsList} />
+        <Route path="/edit/:id" component={EditCampground} />
+        <Route path="/create" component={CreateCampground} />
+        <Route path="/user" component={CreateUser} />
+      </div>
+    </Router>
   );
 }
 
