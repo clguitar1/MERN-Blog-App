@@ -52,7 +52,7 @@ class BlogsList extends Component {
         <h1>Blogs List</h1>
         {this.state.blogs.map(blog => {
           return (
-            <div>
+            <div key={blog._id}>
               <h2>{blog.title}</h2>
               <img src={blog.image} alt="" />
               <p>{blog.body}</p>

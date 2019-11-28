@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let Blog = require('../models/blog.model');
 
-// Get all blogs
+// NEW Get all blogs
 router.route('/').get((req, res) => {
   // get all the blogs and return them as json
   Blog.find()
@@ -9,23 +9,34 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-// Add a new blog
-router.route('/add').post((req, res) => {
-  const title = req.body.title;
-  const image = req.body.image;
-  const body = req.body.body;
-  const created = Date.parse(req.body.created);
+// NEW is in App.js as /blogs/new route
 
-  const newBlog = new Blog({
-    title,
-    image,
-    body,
-    created
-  });
+// CREATE Add a new blog
+router.route('/new').post((req, res) => {
+  // const title = req.body.title;
+  // const image = req.body.image;
+  // const body = req.body.body;
+  // const created = Date.parse(req.body.created);
 
-  newBlog.save()
-    .then(() => res.json('Blog added!'))
-    .catch(err => res.status(400).json("Error: " + err));
+  // const newBlog = new Blog({
+  //   title,
+  //   image,
+  //   body,
+  //   created
+  // });
+
+  // newBlog.save()
+  //   .then(() => res.json('Blog added!'))
+  //   .catch(err => res.status(400).json("Error: " + err));
+
+  Blog.create(req.body, (err, newBlog) => {
+    if (err) {
+      res.status(400).json('Error: ' + err);
+    } else {
+      console.log('Blog added');
+      res.json('Blog added!');
+    }
+  })
 });
 
 // Get a single campground
