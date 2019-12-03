@@ -13,22 +13,6 @@ router.route('/').get((req, res) => {
 
 // CREATE Add a new blog
 router.route('/new').post((req, res) => {
-  // const title = req.body.title;
-  // const image = req.body.image;
-  // const body = req.body.body;
-  // const created = Date.parse(req.body.created);
-
-  // const newBlog = new Blog({
-  //   title,
-  //   image,
-  //   body,
-  //   created
-  // });
-
-  // newBlog.save()
-  //   .then(() => res.json('Blog added!'))
-  //   .catch(err => res.status(400).json("Error: " + err));
-
   Blog.create(req.body, (err, newBlog) => {
     if (err) {
       res.status(400).json('Error: ' + err);
@@ -39,11 +23,19 @@ router.route('/new').post((req, res) => {
   })
 });
 
-// Get a single campground
+// SHOW get a single blog post
 router.route('/:id').get((req, res) => {
-  Blog.findById(req.params.id)
-    .then(blog => res.json(blog))
-    .catch(err => res.status(400).json("Error: " + err));
+  // Blog.findById(req.params.id)
+  //   .then(blog => res.json(blog))
+  //   .catch(err => res.status(400).json("Error: " + err));
+  Blog.findById(req.params.id, (err, foundBlog) => {
+    if (err) {
+      res.status(400).json('Error: ' + err);
+    } else {
+      // console.log('Found the id: ' + req.params.id);
+      res.json(foundBlog);
+    }
+  })
 });
 
 // Delete a campground

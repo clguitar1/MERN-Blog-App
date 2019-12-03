@@ -13,8 +13,7 @@ class CreateBlog extends Component {
     this.state = {
       title: '',
       image: '',
-      body: '',
-      date: new Date()
+      body: ''
     };
   }
 
@@ -34,8 +33,7 @@ class CreateBlog extends Component {
     const blog = {
       title: this.state.title,
       image: this.state.image,
-      body: this.state.body,
-      date: this.state.date
+      body: this.state.body
     }
     console.log(blog);
 
@@ -65,7 +63,6 @@ class CreateBlog extends Component {
                     type="text"
                     name="title"
                     required
-                    value
                     placeholder="Title"
                     value={this.state.title}
                     onChange={this.handleInputChange}

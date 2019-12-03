@@ -2,17 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-// const Blog = props => (
-//   <tr>
-//     <td>{props.blog.title}</td>
-//     <td>{props.blog.image}</td>
-//     <td>{props.blog.created.substring(0, 10)}</td>
-//     <td>
-//       <Link to={"/edit/" + props.blog._id} >edit</Link> | <a href="#" onClick={() => { props.deleteCampground(props.blog._id) }}>delete</a>
-//     </td>
-//   </tr>
-// )
-
 class BlogsList extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +14,10 @@ class BlogsList extends Component {
     axios.get('http://localhost:5000/blogs')
       .then(response => {
         this.setState({ blogs: response.data });
-        console.log(this.state.blogs);
       })
       .catch(error => {
         console.log(error);
-      })
+      });
   }
 
   // deleteCampground(id) {
@@ -48,15 +36,26 @@ class BlogsList extends Component {
 
   render() {
     return (
-      <div className='BlogsList'>
-        <h1>Blogs List</h1>
+      <div className='BlogsList row'>
         {this.state.blogs.map(blog => {
+          const { body, created, image, _id, title } = blog;
+          const createdDate = new Date(created);
           return (
-            <div key={blog._id}>
-              <h2>{blog.title}</h2>
-              <img src={blog.image} alt="" />
-              <p>{blog.body}</p>
-              <span>{blog.created}</span>
+            <div className="col-md-4">
+              <div key={_id} className='BlogDetails card mb-4 shadow-sm'>
+                <img className='card-img-top' src={image} alt={image} width='100%' height='225' />
+                <div className='card-body'>
+                  <h5 className='card-title'>{title}</h5>
+                  <p className='card-text'>{`${body.substring(0, 100)}...`}</p>
+                  <div className='d-flex justify-content-between align-items-center'>
+                    <div className="btn-group">
+                      <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/${_id}`}>View</Link>
+                      <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/`}>Edit</Link>
+                    </div>
+                    <small className='ml-3 text-muted'>{createdDate.toDateString()}</small>
+                  </div>
+                </div>
+              </div>
             </div>
           )
         })}
