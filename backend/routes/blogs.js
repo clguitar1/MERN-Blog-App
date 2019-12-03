@@ -25,14 +25,10 @@ router.route('/new').post((req, res) => {
 
 // SHOW get a single blog post
 router.route('/:id').get((req, res) => {
-  // Blog.findById(req.params.id)
-  //   .then(blog => res.json(blog))
-  //   .catch(err => res.status(400).json("Error: " + err));
   Blog.findById(req.params.id, (err, foundBlog) => {
     if (err) {
       res.status(400).json('Error: ' + err);
     } else {
-      // console.log('Found the id: ' + req.params.id);
       res.json(foundBlog);
     }
   })
@@ -45,18 +41,31 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-// Edit a Blog
-router.route('/update/:id').post((req, res) => {
-  Blog.findById(req.params.id)
-    .then(blog => {
-      blog.username = req.body.username;
-      blog.description = req.body.description;
-      blog.date = Date.parse(req.body.date);
+// // Edit a Blog
+// router.route('/update/:id').post((req, res) => {
+//   Blog.findById(req.params.id)
+//     .then(blog => {
+//       blog.username = req.body.username;
+//       blog.description = req.body.description;
+//       blog.date = Date.parse(req.body.date);
 
-      blog.save()
-        .then(() => res.json('Blog updated!'))
-        .catch(err => res.status(400).json("Error: " + err));
-    })
+//       blog.save()
+//         .then(() => res.json('Blog updated!'))
+//         .catch(err => res.status(400).json("Error: " + err));
+//     })
+// });
+
+// UPDATE - the get part of the route .get('/blogs/:id/edit') is set in App.js as <Route exact path="/blogs/:id/edit" component={EditBlog} /> and a componentDidMount in EditBlog.js.
+router.route('/:id').put((req, res) => {
+  Blog.findByIdAndUpdate(req.params.id, req.body, (err, updatedBlog) => {
+    if (err) {
+      res.status(400).json(err);
+      console.log(err);
+    } else {
+      res.json(updatedBlog);
+      console.log('Updated!');
+    }
+  })
 });
 
 module.exports = router;

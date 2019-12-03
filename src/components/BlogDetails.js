@@ -20,11 +20,11 @@ class BlogDetails extends Component {
   }
 
   render() {
-    const { id, title, image, created, body } = this.state.blog;
+    const { _id, title, image, created, body } = this.state.blog;
     const createdDate = new Date(created);
     return (
-      <div key={id} className='BlogDetails row'>
-        <div className="ui items top attached">
+      <div key={_id} className='BlogDetails row'>
+        <div>
           <div className="item">
             <h1 className="">{title}</h1>
             <img src={image} alt={image} />
@@ -34,7 +34,7 @@ class BlogDetails extends Component {
             <p className='lead'>{body}</p>
           </div>
           <Link className="btn btn-sm btn-outline-secondary" to="/">Back</Link>
-          <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/`}>Edit</Link>
+          <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/${_id}/edit`}>Edit</Link>
         </div>
       </div>
     );

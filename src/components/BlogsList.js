@@ -41,8 +41,8 @@ class BlogsList extends Component {
           const { body, created, image, _id, title } = blog;
           const createdDate = new Date(created);
           return (
-            <div className="col-md-4">
-              <div key={_id} className='BlogDetails card mb-4 shadow-sm'>
+            <div key={_id} className="col-md-4">
+              <div className='BlogDetails card mb-4 shadow-sm'>
                 <img className='card-img-top' src={image} alt={image} width='100%' height='225' />
                 <div className='card-body'>
                   <h5 className='card-title'>{title}</h5>
@@ -50,7 +50,7 @@ class BlogsList extends Component {
                   <div className='d-flex justify-content-between align-items-center'>
                     <div className="btn-group">
                       <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/${_id}`}>View</Link>
-                      <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/`}>Edit</Link>
+                      <Link className="btn btn-sm btn-outline-secondary" to={`/blogs/${_id}/edit`}>Edit</Link>
                     </div>
                     <small className='ml-3 text-muted'>{createdDate.toDateString()}</small>
                   </div>
