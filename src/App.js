@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import Navbar from './components/Navbar';
 import BlogsList from './components/BlogsList';
 import CreateBlog from './components/CreateBlog';
-import CreateUser from './components/CreateUser';
 import EditBlog from './components/EditBlog';
-import BlogDetails from './components/BlogDetails';
+import ShowBlog from './components/ShowBlog';
 import Footer from './components/Footer';
 // start react app with 'npm start' (port 3000) and start database connection with 'nodemon server' (port 5000) in a separate terminal.
 
@@ -24,10 +23,9 @@ class App extends Component {
             <Route exact path="/blogs" component={BlogsList} />
             <Route exact path="/"><Redirect to="/blogs" /></Route >
             <Route exact path="/blogs/new" component={CreateBlog} />
-            <Route exact path="/blogs/:id" component={BlogDetails}
+            <Route exact path="/blogs/:id" component={ShowBlog}
             />
             <Route exact path="/blogs/:id/edit" component={EditBlog} />
-            <Route exact path="/user" component={CreateUser} />
           </Switch>
         </div>
         <Footer />

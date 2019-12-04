@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "react-datepicker/dist/react-datepicker.css";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './CreateBlog.css';
 
@@ -37,7 +37,7 @@ class CreateBlog extends Component {
     }
     console.log(blog);
 
-    axios.post('http://localhost:5000/blogs/new', blog)
+    axios.post('http://localhost:5000/blogs', blog)
       .then(res => console.log(res.data));
 
     window.location = '/';
@@ -45,66 +45,48 @@ class CreateBlog extends Component {
 
   render() {
     return (
-      <div className='CreateBlog ui middle aligned center aligned grid'>
-
-        <div className="column">
-          <h2 className="ui teal image header">
-            New Blog
+      <div className='CreateBlog p-3'>
+        <h2>
+          New Blog Post
           </h2 >
-
-          <form className="ui large form" onSubmit={this.onSubmit}>
-
-            <div className="ui stacked segment">
-
-              <div className="field">
-                <label>Title</label>
-                <div className="ui left input">
-                  <input
-                    type="text"
-                    name="title"
-                    required
-                    placeholder="Title"
-                    value={this.state.title}
-                    onChange={this.handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="field">
-                <label>Image</label>
-                <div className="ui left input">
-                  <input
-                    type="text"
-                    name="image"
-                    placeholder="Image"
-                    value={this.state.image}
-                    onChange={this.handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="field">
-                <label>Blog Content</label>
-                <div className="ui left input">
-                  <textarea
-                    name="body"
-                    placeholder="Blog post goes here"
-                    value={this.state.body}
-                    onChange={this.handleInputChange}
-                  >
-                  </textarea>
-                </div>
-              </div>
-
-              <input type="submit" className="ui fluid large teal submit button" />
-
-            </div>
-
-            <div className="ui error message"></div>
-
-          </form>
-
-        </div>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Title</label>
+            <input
+              type="text"
+              name="title"
+              required
+              placeholder="Title"
+              className="form-control"
+              value={this.state.title}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Image</label>
+            <input
+              type="text"
+              name="image"
+              placeholder="Image"
+              className="form-control"
+              value={this.state.image}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Blog Content</label>
+            <textarea
+              name="body"
+              placeholder="Blog post goes here"
+              className="form-control"
+              value={this.state.body}
+              onChange={this.handleInputChange}
+            >
+            </textarea>
+          </div>
+          <button className="btn btn-outline-danger">Submit</button>
+          <Link to='/' className="btn btn-outline-secondary">Go Back</Link>
+        </form>
 
       </div>
     );

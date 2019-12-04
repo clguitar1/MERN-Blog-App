@@ -1,18 +1,17 @@
 const router = require('express').Router();
 let Blog = require('../models/blog.model');
 
-// NEW Get all blogs
+// INDEX Get all blogs.
 router.route('/').get((req, res) => {
-  // get all the blogs and return them as json
   Blog.find()
     .then(blogs => res.json(blogs))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-// NEW is in App.js as /blogs/new route
+// NEW /blogs/new is in App.js 
 
 // CREATE Add a new blog
-router.route('/new').post((req, res) => {
+router.route('/').post((req, res) => {
   Blog.create(req.body, (err, newBlog) => {
     if (err) {
       res.status(400).json('Error: ' + err);
@@ -20,7 +19,7 @@ router.route('/new').post((req, res) => {
       console.log('Blog added');
       res.json('Blog added!');
     }
-  })
+  });
 });
 
 // SHOW get a single blog post
@@ -31,29 +30,8 @@ router.route('/:id').get((req, res) => {
     } else {
       res.json(foundBlog);
     }
-  })
+  });
 });
-
-// Delete a campground
-router.route('/:id').delete((req, res) => {
-  Blog.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Blog deleted."))
-    .catch(err => res.status(400).json("Error: " + err));
-});
-
-// // Edit a Blog
-// router.route('/update/:id').post((req, res) => {
-//   Blog.findById(req.params.id)
-//     .then(blog => {
-//       blog.username = req.body.username;
-//       blog.description = req.body.description;
-//       blog.date = Date.parse(req.body.date);
-
-//       blog.save()
-//         .then(() => res.json('Blog updated!'))
-//         .catch(err => res.status(400).json("Error: " + err));
-//     })
-// });
 
 // UPDATE - the get part of the route .get('/blogs/:id/edit') is set in App.js as <Route exact path="/blogs/:id/edit" component={EditBlog} /> and a componentDidMount in EditBlog.js.
 router.route('/:id').put((req, res) => {
@@ -65,7 +43,21 @@ router.route('/:id').put((req, res) => {
       res.json(updatedBlog);
       console.log('Updated!');
     }
-  })
+  });
+});
+
+// DELETE    /blogs/:id delete a blog then redirect Blog.findByIdAndRemove().
+// Delete UI is in ShowBlog.js including redirect.
+router.route('/:id').delete((req, res) => {
+  Blog.findByIdAndRemove(req.params.id, (err) => {
+    if (err) {
+      res.status(400).json(err);
+      console.log(err);
+    } else {
+      res.json('Blog Deleted!');
+      console.log('Blog Deleted!');
+    }
+  });
 });
 
 module.exports = router;

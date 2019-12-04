@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class EditBlog extends Component {
@@ -67,7 +68,7 @@ class EditBlog extends Component {
               onChange={this.handleInputChange} />
           </div>
           <div className="form-group">
-            <label>Image</label>
+            <label>Image Url</label>
             <input
               name='image'
               type="text"
@@ -86,13 +87,8 @@ class EditBlog extends Component {
               value={this.state.body}
               onChange={this.handleInputChange}></textarea>
           </div>
-          <div className="form-group">
-            <input
-              type="submit"
-              className="btn btn-outline-secondary"
-              value="Submit"
-            />
-          </div>
+          <button className="btn btn-outline-danger">Submit</button>
+          <Link to='/' className="btn btn-outline-secondary">Go Back</Link>
         </form>
       </div>
     );
